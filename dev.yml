@@ -1,0 +1,40 @@
+name: mlb-the-show-tracker
+
+type: rails
+
+up:
+  - homebrew:
+    - openssl
+    - shopify/shopify/mysql-client:
+        or:        [mysql]
+        conflicts: [mysql-connector-c]
+    # - another_package
+  - ruby: 2.6.2
+  - bundler
+  - railgun
+  - database:
+      bootstrap: bin/rails db:create db:migrate db:schema:load
+      migrate: bin/rails db:migrate db:test:prepare
+      host: mlb-the-show-tracker.railgun
+      user: root
+      password: ''
+      database: mlb-the-show-tracker_development
+
+server:
+  port: 63949
+
+commands:
+  console: bin/rails console
+  test:
+    syntax:
+      argument: file
+      optional: args...
+    run:    bin/rails test
+
+# These use fuzzy-matching, so you can (e.g.) `dev open app`
+open:
+  "My Application": https://mlb-the-show-tracker.myshopify.io
+  #ops:
+    # - https://datadog.link
+    # - https://bugsnag.link
+    # - https://kafka.link
